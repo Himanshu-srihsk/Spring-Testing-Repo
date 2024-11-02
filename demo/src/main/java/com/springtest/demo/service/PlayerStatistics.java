@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerStatistics {
+    @Autowired
     private Player player;
     private int games;
     private int goals;

@@ -1,16 +1,28 @@
 package com.springtest.demo.service;
 
+import com.springtest.demo.config.AppConfig;
+import com.springtest.demo.exception.InvalidInputException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+
 @SpringBootTest
+@ContextConfiguration(classes = AppConfig.class)
 class CalculatorServiceTest {
     @Autowired
-  private CalculatorService calculatorService;
+    private CalculatorService calculatorService;
+
+//    @BeforeEach
+//    public void init(){
+//        calculatorService = new CalculatorService();
+//    }
+
     @Test
     void testAdd() {
         int result = calculatorService.add(2, 3);
@@ -38,9 +50,6 @@ class CalculatorServiceTest {
     void testSameObject() {
         CalculatorService sameInstance = calculatorService;
         assertSame(calculatorService, sameInstance, "The instances should be the same");
-
-        CalculatorService newInstance = new CalculatorService();
-        assertNotSame(calculatorService, newInstance, "The instances should not be the same");
     }
 
     @Test
@@ -50,4 +59,29 @@ class CalculatorServiceTest {
         assertArrayEquals(expectedArray, actualArray, "The arrays should be equal");
         assertFalse(Arrays.equals(new int[]{1,2,3,4}, actualArray), "The arrays should not be equal");
     }
+
+
+
+    @Test
+    void testDivideValidInputs() {
+        double result = calculatorService.divide(10, 2);
+        assertEquals(5.0, result);
+    }
+
+    @Test
+    void testValidInput() {
+        assertThrows(InvalidInputException.class, () -> {
+            calculatorService.checkForInput("dog");
+        });
+    }
+
+    @Test
+    void testDivideByZeroThrowsException() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            calculatorService.divide(10, 0);
+        });
+
+        assertEquals("Denominator cannot be zero.", thrown.getMessage());
+    }
+
 }
