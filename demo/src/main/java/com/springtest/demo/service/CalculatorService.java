@@ -3,6 +3,8 @@ package com.springtest.demo.service;
 import com.springtest.demo.exception.InvalidInputException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CalculatorService {
@@ -51,6 +53,17 @@ public class CalculatorService {
             throw new IllegalArgumentException("Calculator cannot accept value: " + i);
         }
         return i;
+    }
+
+
+    public List<String> getGrades(List<Integer> scores){
+        List<String> list = new ArrayList<>();
+        scores.forEach(e-> list.add(e.toString()));
+        return list;
+    }
+    // private Methods
+    private String computeGrade(Integer score){
+        return score<70?"fail":"pass";
     }
 
 }

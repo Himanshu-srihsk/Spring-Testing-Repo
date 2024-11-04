@@ -3,11 +3,17 @@ package com.springtest.demo.service;
 import com.springtest.demo.config.AppConfig;
 import com.springtest.demo.exception.InvalidInputException;
 import org.junit.jupiter.api.Test;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.reflect.Whitebox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 
+
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -128,6 +134,26 @@ class CalculatorServiceTest {
         assertThrows(RuntimeException.class, () -> {
             calculatorService.squareInteger((int)Math.sqrt(-5));
         });
+    }
+
+    //Testing private methods
+    @Test
+    public void ComputerGradeWithReflection() throws Exception{
+        Class[] parameters = new Class[1];
+        parameters[0] = Integer.class;
+        Method method = CalculatorService.class.getDeclaredMethod("computeGrade", parameters);
+        method.setAccessible(true);
+
+        Object[] methodArgs = new Object[1];
+        methodArgs[0] =67;
+        String actualGrade = (String) method.invoke(calculatorService,methodArgs);
+        assertEquals("fail", actualGrade);
+    }
+    //Testing private methods
+    @Test
+    public void ComputerGradeWithPowermock() throws Exception{
+        String actualGrade = ReflectionTestUtils.invokeMethod(calculatorService, "computeGrade", 67);
+        assertEquals("fail", actualGrade);
     }
 
 }
