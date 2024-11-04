@@ -1,18 +1,20 @@
 package com.springtest.demo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Player {
     private String name;
     private int age;
 
-    public Player(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+
 
     public String getName() {
         return name;

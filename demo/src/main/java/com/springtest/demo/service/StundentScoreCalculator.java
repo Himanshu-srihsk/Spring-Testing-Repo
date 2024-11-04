@@ -2,7 +2,6 @@ package com.springtest.demo.service;
 
 import org.springframework.stereotype.Service;
 
-@Service
 public class StundentScoreCalculator {
     private int satScore;
 

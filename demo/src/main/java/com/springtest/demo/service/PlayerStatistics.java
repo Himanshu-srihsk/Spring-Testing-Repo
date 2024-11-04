@@ -4,12 +4,16 @@ import com.springtest.demo.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class PlayerStatistics {
     @Autowired
     private Player player;
     private int games;
     private int goals;
+
+    PlayerStatistics(Player player){
+        this.player = player;
+    }
 
     public PlayerStatistics(Player player, int games, int goals) {
         this.player = player;
