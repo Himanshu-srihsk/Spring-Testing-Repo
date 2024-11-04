@@ -1,6 +1,7 @@
 package com.springtest.demo.service;
 
 import com.springtest.demo.model.Player;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,9 @@ class PlayerStatisticsTest {
         Player player2 = new Player("Patrick", 25);
 
         // Assert that player names are equal, not the entire object
+        // Assertions.assertEquals(player2.getName(), playerPatrickUnderThirty.getName());;
         assertThat(player2.getName()).isEqualTo(playerPatrickUnderThirty.getName());
+
     }
 
     @Test

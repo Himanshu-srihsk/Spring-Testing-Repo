@@ -84,4 +84,50 @@ class CalculatorServiceTest {
         assertEquals("Denominator cannot be zero.", thrown.getMessage());
     }
 
+    @Test
+    public void squaredIntegerHappyPath(){
+
+
+        assertEquals(9, calculatorService.squareInteger(3));
+        assertEquals(100, calculatorService.squareInteger(10));
+
+    }
+
+    @Test
+    public void squaredIntegerUpperBoundary(){
+
+       assertThrows(RuntimeException.class, () -> {
+           calculatorService.squareInteger(50000);
+        });
+
+    }
+
+    public void squaredIntegerLowerBoundary(){
+
+        assertThrows(RuntimeException.class, () -> {
+            calculatorService.squareInteger(-50000);
+        });
+
+    }
+
+    @Test
+    public void squaredIntegerNull(){
+
+        assertEquals(0,calculatorService.squareInteger(null));
+
+
+    }
+
+    @Test
+    public void squaredIntegerNegative(){
+      assertEquals(25,calculatorService.squareInteger(-5));
+    }
+
+
+    public void squaredIntegerNaN(){
+        assertThrows(RuntimeException.class, () -> {
+            calculatorService.squareInteger((int)Math.sqrt(-5));
+        });
+    }
+
 }
